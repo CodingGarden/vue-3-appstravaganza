@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue 3 Example</title>
+  <link rel="stylesheet" href="https://ez-css.now.sh">
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+
+    .jokes-enter-active,
+    .jokes-leave-active {
+      transition: all 1s ease;
+    }
+    .jokes-enter-from,
+    .jokes-leave-to {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+  </style>
+</head>
+<body v-cloak>
+  <h1>
+    {{message}}
+  </h1>
+  <button @click="increment">{{count}}</button>
+  <h3>{{countPlus10}}</h3>
+  <div>
+    <h3 v-if="dadJokes.loading">Loading Jokes...</h3>
+    <h3 v-if="dadJokes.error">{{dadJokes.error}}</h3>
+    <h3 v-if="!dadJokes.error && !dadJokes.loading">Here iz your dad jokez:</h3>
+    <transition-group name="jokes" tag="div">
+      <div v-for="joke in dadJokes.jokes" :key="joke.id" class="jokes-item">
+        <h4>{{joke.joke}}</h4>
+      </div>
+    </transition-group>
+  </div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
