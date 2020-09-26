@@ -1,16 +1,19 @@
 <template>
-  <nav>
-    <div class="nav-wrapper green">
-      <div class="container">
-        <a href="#" class="brand-logo">Reddit Client</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <!-- <li><a href="sass.html">Sass</a></li> -->
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <router-view class="container"/>
+  <NavBar />
+  <div class="grey darken-4">
+    <router-view class="container"/>
+  </div>
 </template>
+
+<script>
+import NavBar from '@/components/NavBar.vue';
+
+export default {
+  components: {
+    NavBar,
+  },
+};
+</script>
 
 <style lang="scss">
 </style>
