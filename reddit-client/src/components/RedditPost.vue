@@ -1,19 +1,32 @@
 <template>
   <div class="col s12">
     <div class="card post">
-      <div v-if="isVideo" class="card-image waves-effect waves-block waves-light">
+      <div class="card-content title-info">
+        <span class="card-title vertical-center">
+          <span class="badge green white-text score">{{ post.score }}</span>
+          {{ post.title }}
+        </span>
+        <p>
+          Posted {{postTime}} by <a :href="`https://www.reddit.com/u/${post.author}`">{{post.author}}</a>
+        </p>
+      </div>
+      <div
+        v-if="isVideo"
+        class="card-image waves-effect waves-block waves-light"
+      >
         <video class="activator video" controls muted autoplay loop>
           <source type="video/mp4" :src="videoUrl" />
         </video>
       </div>
-      <div v-if="isImage" class="card-image waves-effect waves-block waves-light">
+      <div
+        v-if="isImage"
+        class="card-image waves-effect waves-block waves-light"
+      >
         <img class="activator" :src="post.url" />
       </div>
       <div class="card-content">
-        <span class="card-title activator"
-          >{{post.title}}</span
-        >
-        <p><a :href="`https://www.reddit.com${post.permalink}`">Comments</a></p>
+        <!-- pluralize! -->
+        <p><a :href="`https://www.reddit.com${post.permalink}`">{{post.num_comments}} Comments</a></p>
       </div>
     </div>
   </div>
@@ -21,6 +34,7 @@
 
 <script>
 import { computed } from 'vue';
+import * as timeago from 'timeago.js';
 
 export default {
   props: {
@@ -29,7 +43,10 @@ export default {
   setup({ post }) {
     // TODO: some posts not displayed correctly...
     // you should check the isVideo and isGif properties
-    const isVideo = computed(() => (post.secure_media && post.secure_media.reddit_video) || post.url.match(/mp4|gifv|mkv|mov|webm$/));
+    const isVideo = computed(
+      () => (post.secure_media && post.secure_media.reddit_video)
+        || post.url.match(/mp4|gifv|mkv|mov|webm$/),
+    );
 
     const isImage = computed(() => post.url.match(/bmp|webp|png|jpg|jpeg|gif$/));
 
@@ -42,7 +59,12 @@ export default {
       return parts.concat('mp4').join('.');
     });
 
+    const postTime = computed(() => {
+      return timeago.format(post.created_utc * 1000);
+    });
+
     return {
+      postTime,
       isVideo,
       isImage,
       videoUrl,
@@ -58,5 +80,21 @@ export default {
 
 .video {
   width: 100%;
+}
+
+.title-info {
+  padding-bottom: 0px;
+}
+
+.score {
+  float: none;
+  border-radius: 10px;
+  margin-right: 8px;
+  padding: 6px;
+}
+
+.vertical-center {
+  display: flex;
+  align-items: center;
 }
 </style>

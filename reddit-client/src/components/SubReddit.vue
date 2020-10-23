@@ -10,7 +10,10 @@ export default {
   },
   setup(props) {
     const postsState = usePosts(props.name);
-    const posts = computed(() => postsState.data.filter((child) => !child.data.over_18).map((child) => child.data));
+    const posts = computed(() => postsState
+      .data
+      .filter((child) => !child.data.over_18)
+      .map((child) => child.data));
 
     return {
       postsState,
