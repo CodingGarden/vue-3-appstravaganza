@@ -13,13 +13,14 @@
 </template>
 
 <script>
+import { useRouter } from 'vue-router';
 import { onMounted, ref, watch } from 'vue';
 
 import API from '@/lib/API';
-import state from '@/store/diy';
 
 export default {
   setup() {
+    const router = useRouter();
     // TODO: Allow users to hit enter on search bar for when autocomplete doesn't find the small ones
     const searchTerm = ref('');
     const subreddit = ref(null);
@@ -32,7 +33,12 @@ export default {
       instance = M.Autocomplete.init(subreddit.value, {
         data: {},
         onAutocomplete(result) {
-          state.subreddit.value = `r/${result}`;
+          router.push({
+            name: 'SubredditPage',
+            params: {
+              subreddit: result,
+            },
+          });
         },
       });
       async function getResults() {
@@ -64,7 +70,12 @@ export default {
     const updateSubreddit = () => {
       // TODO: fix this...
       clearTimeout(debounceTimeout);
-      state.subreddit.value = `r/${searchTerm.value}`;
+      router.push({
+        name: 'SubredditPage',
+        params: {
+          subreddit: searchTerm.value,
+        },
+      });
       if (subreddit.value) {
         subreddit.value.blur();
       }

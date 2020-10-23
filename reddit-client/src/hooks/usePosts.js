@@ -10,6 +10,7 @@ export default function usePosts(subreddit, params = {}) {
   });
 
   async function loadData() {
+    console.log('reloading data...');
     try {
       postsState.loading = true;
       postsState.error = '';
@@ -24,7 +25,7 @@ export default function usePosts(subreddit, params = {}) {
     }
   }
 
-  watch(() => subreddit.value, loadData, { immediate: true });
+  watch(subreddit, loadData, { immediate: true });
 
   return postsState;
 }
