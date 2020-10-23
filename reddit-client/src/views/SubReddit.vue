@@ -71,9 +71,11 @@ export default {
                 <div>
                   <span class="card-title">{subredditState.data.display_name_prefixed}</span>
                   <span class="card-title">{subredditState.data.title}</span>
-                  <p>{subredditState.data.public_description}</p>
-                  <small>{subredditState.data.active_user_count} of {subredditState.data.subscribers} subscribers are here.</small>
                 </div>
+              </div>
+              <div class="card-content">
+                <p>{subredditState.data.public_description}</p>
+                <small>{subredditState.data.active_user_count} of {subredditState.data.subscribers} subscribers are here.</small>
               </div>
             </div>
           )}
@@ -109,7 +111,7 @@ export default {
   margin: 1rem;
 }
 
-.info { 
+.info {
   .banner {
     display: flex;
     justify-content: flex-start;

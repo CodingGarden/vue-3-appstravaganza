@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <h1>Welcome home!</h1>
+    <h2>{{example}}</h2>
     <div>
       <h3 v-if="dadJokes.loading">Loading...</h3>
       <h3 v-if="!dadJokes.loading && dadJokes.error">{{ dadJokes.error }}</h3>
@@ -22,12 +23,14 @@
 
 <script lang="ts">
 import { defineComponent, computed, ref } from 'vue';
+import { useExample } from '@denver-vue/captain-hooks';
 
 import useFetch from '@/hooks/useFetch';
 import { DadJokeResponse, NasaImage, NasaImageResponse } from '@/interfaces/interfaces';
 
 export default defineComponent({
   setup() {
+    const example = useExample();
     const nasaSearch = ref('moon');
     const nasaSearchUrl = computed(() => `https://images-api.nasa.gov/search?q=${nasaSearch.value}`);
     const dadJokeUrl = computed(() => 'https://icanhazdadjoke.com/');
@@ -54,6 +57,7 @@ export default defineComponent({
     });
 
     return {
+      example,
       dadJokes,
       nasaImageSearch,
       nasaImages,

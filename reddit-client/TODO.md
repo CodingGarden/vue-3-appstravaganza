@@ -10,6 +10,7 @@
   * [x] Title
   * [x] Sidebar
   * [x] number of subs
+  * [ ] Format number of subscribers
 * [ ] Infinite Scroll / pagination
 * [ ] Add more details to the card
 * [ ] Work on media embed

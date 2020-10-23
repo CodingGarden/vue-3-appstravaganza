@@ -59,9 +59,7 @@ export default {
       return parts.concat('mp4').join('.');
     });
 
-    const postTime = computed(() => {
-      return timeago.format(post.created_utc * 1000);
-    });
+    const postTime = computed(() => timeago.format(post.created_utc * 1000));
 
     return {
       postTime,
