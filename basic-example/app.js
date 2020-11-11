@@ -34,8 +34,7 @@ createApp({
 
     return {
       message,
-      count,
-      increment,
+      count,      
       countPlus10,
       dadJokes,
     };
